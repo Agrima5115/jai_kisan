@@ -53,29 +53,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Login</title>
   <link rel="stylesheet" href="Signup.css">
   <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <link rel="icon" href="images/logo1.jpg" /> <!-- Add this line with the path to your favicon -->
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 </head>
+
 <body>
+
+
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form id="signupForm"  method="post">
+		<form id="signupForm" action="post">
 			<h1>Create Account</h1>
-			<input type="text" placeholder="Name" id="name" name="name" />
-			<input type="email" placeholder="Email" id="email" name="email" />
-			<input type="password" placeholder="Password" id="password" name="password" />
-			<button type="submit" id="signupButton" name="signupButton">Sign Up</button>
-		 </form>		 
+			<input type="text" placeholder="Name" id="name" />
+			<input type="email" placeholder="Email" id="email" />
+			<input type="password" placeholder="Password" id="password" />
+			<button type="button" id="signupButton">Sign Up</button> <!-- Use type="button" to prevent form submission -->
+		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form method="post">
+		<form id ="signInForm" action="post">
 			<h1>Sign in</h1>
-			<input type="email" placeholder="Email" name="loginEmail" />
-			<input type="password" placeholder="Password" name="loginPassword" />
-			<button type="submit" name="signIn">Sign In</button>
-		 </form>
+			
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			
+			<button>Sign In</button>
+		</form>
 	</div>
 	<div class="overlay-container">
-		<div class="overlay">
+		<!-- <div class="overlay">
 			<div class="overlay-panel overlay-left">
 				<h1>Welcome Back!</h1>
 				<p>To keep connected with us please login with your personal details</p>
@@ -86,9 +92,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<p>Enter your personal details to open an account with us</p>
 				<button class="ghost" id="signUp">Sign Up</button>
 			</div>
+		</div> -->
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<!-- Message: HI there -->
+				<h2>HI there!</h2>
+				<p2>To keep connected with us please login with your personal details.</p2>
+				<button class="ghost1" id="signIn">Sign In</button>
+				<!-- <img src="image1.jpg" alt="Image 1"> -->
+			</div>
+			<div class="overlay-panel overlay-right">
+				<!-- Message: Welcome back -->
+				<h3>Welcome back!</h3>
+				<p1>Enter your personal details to open an account with us.</p1>
+				<button class="ghost" id="signUp">Sign Up</button>
+				<!-- <img src="image2.jpg" alt="Image 2"> -->
+			</div>
 		</div>
 	</div>
 </div>
+
+<footer>
+	<section class="footer">
+	  <div class="footer-row">          
+		<div class="copyright">
+		  <p>&copy; 2023 Team Jai Kisan. All rights reserved.</p>
+	  </div>
+	</section>
+</footer>
+
 <script src="Signup.js" charset="utf-8"></script>
 </body>
 </html>
