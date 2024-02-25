@@ -35,8 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect to index.html after successful signin
                 echo "Before redirection"; // Debugging statement
+                ob_end_clean(); // Clear output buffer
                 header("Location: index.html");
-                exit();         
+                exit();
+   
             } else {
                 echo "<script type='text/javascript'>alert('Incorrect password')</script>";
             }
