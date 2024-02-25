@@ -279,25 +279,15 @@ button i {
   }
   
 
-/*--------------
-.full-forecast {
-	overflow-x: scroll;
-	overflow-y: visible;
-	padding: 10px 10px 10px 10px;
-	width: 100%;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
-	
-}*/
 #weather-chart-container {
 	max-width: 2000px; /* Adjust the maximum width as needed */
-	margin: 20px auto;
-	padding: 50px;
+	margin: 10px auto;
+	padding: 10px;
   }
   
   #weather-chart {
 	width: 100%;
-	max-height: 400px; /* Adjust the maximum height as needed */
+	max-height: 500px; /* Adjust the maximum height as needed */
   }
   
 .full-forecast::-webkit-scrollbar {
@@ -409,13 +399,6 @@ button i {
     position: relative;
 }
 
-/*--------------weather map--------------*/
-.map-container {
-	position: relative;
-	width: 100%;
-	max-width: 1000px; /* Adjust the max-width as needed for your layout */
-	margin: 0 auto;
-}
 
 
 /* -----------------daily weather---------- */

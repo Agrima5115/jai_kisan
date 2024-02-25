@@ -96,20 +96,6 @@ button.ghost1 {
 	color: white;
 }
 
-#signInForm {
-	/* background-color: #ffffff; */
-    background-image: url('images/logo1.jpg');
-    background-size: 160px;
-    background-position: center top;
-    background-repeat: no-repeat;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 50px;
-	height: 100%;
-	text-align: center;
-}
 
 #signupForm {
     background-image: url('images/logo1.jpg');
