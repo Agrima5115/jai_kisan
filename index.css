@@ -231,7 +231,6 @@ h1.temp {
 
 /*---------------*/
 
-
 #mainNavbar {
   background-color: rgba(0, 0, 0, 0.6); 
   font-size: 1.5rem;
@@ -241,11 +240,6 @@ h1.temp {
 
 .navbar.scrolled {
   background-color: rgba(0, 0, 0, 0.9); 
-}
-
-#mainNavbar {
-  font-size: 1.5rem;
-  font-weight: 100;    
 }
 
 #mainNavbar .nav-link {
@@ -274,7 +268,6 @@ h1.temp {
   padding: 0; 
 }
 
-
 #navLinks .navbar-nav {
   margin-right: 20px; 
 }
@@ -288,7 +281,7 @@ h1.temp {
 }
 
 #navLinks .nav-link:hover {
-  color: hsl(51, 30%, 95%);
+  color: hsl(53, 82%, 63%);
 }
 
 .nav-link {
@@ -302,23 +295,36 @@ h1.temp {
   transition: background-color 0.3s ease;
 }
 
-
 .dropdown-menu {
   background-color: rgba(0, 0, 0, 0.6); 
   border: none; 
   box-shadow: none; 
 }
 
-
-.dropdown-item {
-  color: white; 
+.dropdown-item { 
+  color: yellow;
+  color: hsl(0, 0%, 99%);
 }
-
 
 .dropdown-item:hover {
   background-color: rgba(255, 255, 255, 0.1); 
-  color: white; 
+  color: yellow; 
+ 
 }
+
+/* Hover effect for all nav links */
+.nav-item:hover .nav-link,
+.nav-item.dropdown:hover .nav-link {
+  color: hsl(53, 76%, 61%);
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+  
+  background-color: rgba(42, 43, 40, 0.1); 
+  color: yellow; 
+}
+
 
 
 
