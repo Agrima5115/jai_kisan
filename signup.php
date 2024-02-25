@@ -34,8 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $row['id'];
 
                 // Redirect to index.html after successful signin
+                echo "Before redirection"; // Debugging statement
                 header("Location: index.html");
-                exit();
+                exit();         
             } else {
                 echo "<script type='text/javascript'>alert('Incorrect password')</script>";
             }
