@@ -30,6 +30,7 @@ let weather = {
   },
   
   displayWeather: function (data) {
+    
     const weatherContainer = document.querySelector(".weather");
     weatherContainer.classList.remove("loading");
 
@@ -90,49 +91,102 @@ let weather = {
 },
 
 
-  calculateAlertLevel: function (data) {
-    const windSpeed = data.wind.speed;
-    const clouds = data.clouds.all;
-    const rainfall = data.rain && data.rain["1h"] ? data.rain["1h"] : 0;
-    let description = '';
+calculateAlertLevel: function (data) {
+  const windSpeed = data.wind.speed;
+  const clouds = data.clouds.all;
+  const rainfall = data.rain && data.rain["1h"] ? data.rain["1h"] : 0;
+  let description = '';
+
+  // Define alert level criteria
+  const highAlertCriteria = {
+    windSpeed: 30,
+    clouds: 70,
+    rainfall: 10,
+  };
+
+  const moderateAlertCriteria = {
+    windSpeed: 20,
+    clouds: 50,
+    rainfall: 5,
+  };
+
+  // Calculate the alert level based on criteria
+  if (
+    windSpeed >= highAlertCriteria.windSpeed ||
+    clouds >= highAlertCriteria.clouds ||
+    rainfall >= highAlertCriteria.rainfall
+  ) {
+    description = "high";
+  } else if (
+    windSpeed >= moderateAlertCriteria.windSpeed ||
+    clouds >= moderateAlertCriteria.clouds ||
+    rainfall >= moderateAlertCriteria.rainfall
+  ) {
+    description = "moderate";
+  } else {
+    description = "low";
+  }
+
+  // Additional conditions based on weather description
+  const weatherDescription = data.weather[0].description.toLowerCase();
+
+  switch (weatherDescription) {
+      case "clear sky":
+          description = "low";
+          this.updateBackground("clear sky");
+          break;
+      case "haze":
+          description = "moderate";
+          this.updateBackground("haze");
+          break;
+      case "few clouds":
+          description = "low";
+          this.updateBackground("few clouds");
+          break;
+      case "overcast clouds":
+          description = "moderate";
+          this.updateBackground("overcast clouds");
+          break;
+      case "scattered clouds":
+          description = "low";
+          this.updateBackground("scattered clouds");
+          break;
+      case "broken clouds":
+          description = "moderate";
+          this.updateBackground("broken clouds");
+          break;
+      case "shower rain":
+      case "rain":
+          description = "high";
+          this.updateBackground("rain");
+          break;
+      case "thunderstorm":
+          description = "high";
+          this.updateBackground("thunderstorm");
+          break;
+      case "snow":
+          description = "high";
+          this.updateBackground("snow");
+          break;
+      case "mist":
+      case "fog":
+          description = "moderate";
+          this.updateBackground("mist/fog");
+          break;
+      default:
+          // Use default background for unknown descriptions
+          this.updateBackground(description);
+          break;
+  }
+
+  return description;
+},
+
   
-    // Define alert level criteria
-    const highAlertCriteria = {
-      windSpeed: 30,
-      clouds: 70,
-      rainfall: 10,
-    };
-  
-    const moderateAlertCriteria = {
-      windSpeed: 20,
-      clouds: 50,
-      rainfall: 5,
-    };
-  
-    // Calculate the alert level based on criteria
-    if (
-      windSpeed >= highAlertCriteria.windSpeed ||
-      clouds >= highAlertCriteria.clouds ||
-      rainfall >= highAlertCriteria.rainfall
-    ) {
-      description = "high";
-    } else if (
-      windSpeed >= moderateAlertCriteria.windSpeed ||
-      clouds >= moderateAlertCriteria.clouds ||
-      rainfall >= moderateAlertCriteria.rainfall
-    ) {
-      description = "moderate";
-    } else {
-      description = "low";
-    }
-    this.updateBackground(description);
-    return description;
-  },
-  
-  updateBackground: function (weatherDescription) {
+  updateBackground: function (alert) {
     let backgroundImageUrl = "";
 
-    switch (weatherDescription.toLowerCase()) {
+    switch (alert.toLowerCase()) {
       case "clear sky":
         backgroundImageUrl = "url('https://media.tenor.com/PeDk7wvETuMAAAAC/sky-heaven.gif')"; // Change to the rainy background image
         break;
@@ -167,10 +221,10 @@ let weather = {
         backgroundImageUrl = "url('landingpage/fog.gif')"; // Change to the foggy background image
         break;
       case "haze":
-        backgroundImageUrl = "url('landingpage/haze.jpg')"; // Change to the foggy background image
+        backgroundImageUrl = "url('landingpage/h2.gif')"; // Change to the foggy background image
         break;
       default:
-        backgroundImageUrl = "url('landingpage/mist.gif')"; // Change to a default background image
+        backgroundImageUrl = "url('mist.gif')"; // Change to a default background image
     }
 
     document.body.style.backgroundImage = backgroundImageUrl;
