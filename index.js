@@ -72,7 +72,7 @@ let weather = {
       alertSymbolHigh.style.display = "block";
       // Set the image source for high alert
       const alertImg = alertSymbolHigh.querySelector(".alert-img");
-      alertImg.src = "redalert.png"; // Replace with the actual image path
+      alertImg.src = "images/redalert.png"; // Replace with the actual image path
       // Change the color of the high alert symbol to red
       alertSymbolHigh.style.color = "red";
       alert("High alert! Take immediate precautions.");
