@@ -167,6 +167,41 @@ function displayCurrentTemperature(response) {
         visibility.innerHTML = `${Math.round(data.visibility / 1000)}`;
         clouds.innerHTML = `${data.clouds.all}`;
 
+        determineAndDisplayAlertStatus(data.weather[0].main);
+
+// Function to determine and display alert status
+function determineAndDisplayAlertStatus(weatherType) {
+    let alertStatusElement = document.getElementById('alert-status');
+    let alertStatusMessage = '';
+    let alertStatusIconClass = '';
+
+    // Logic to determine alert status based on weather type
+    if (
+        weatherType === 'Thunderstorm' || 
+        weatherType === 'Tornado' ||
+        weatherType === 'Snow'
+    ) {
+        alertStatusMessage = 'Severe';
+        alertStatusIconClass = 'fa-exclamation-triangle';
+    } else if (
+        weatherType === 'Rain' ||
+        weatherType === 'Drizzle' ||
+        weatherType === 'Clouds' ||
+        weatherType === 'Mist' ||
+        weatherType === 'Fog' ||
+        weatherType === 'Haze'
+    ) {
+        alertStatusMessage = 'Moderate';
+        alertStatusIconClass = 'fa-exclamation-circle';
+    } else {
+        alertStatusMessage = 'No Alert';
+        alertStatusIconClass = 'fa-check-circle';
+    }
+
+    // Update the alert status element with the message and icon
+    alertStatusElement.innerHTML = `<i class="fa-solid ${alertStatusIconClass}"></i> ${alertStatusMessage}`;
+}
+
         // Change Icon for Main Overview
         axios.get('icons.json').then(icon => {
             for (let i = 0; i < icon.data.length; i++) {
@@ -182,7 +217,7 @@ function displayCurrentTemperature(response) {
         });
 
 
-
+/*---------------------------------weather alert condiiton------------------------------------------------------------------------------------*/
 
         // Weather Condition Message Indicator
         const weatherType = data.weather[0].main;
@@ -373,27 +408,27 @@ function displayForecast(response) {
 }
 
 function showAlertForDay(weatherType, day) {
-    if (
-        weatherType === 'Rain' ||
-        weatherType === 'Drizzle' ||
-        weatherType === 'Clouds'
-    ) {
-     //   showAlert(`Umbrella Required ${day}`, 'Severe');
-    } else if (weatherType === 'Thunderstorm' || weatherType === 'Tornado') {
-     //   showAlert(`Stay Indoors ${day}`, 'Severe');
-    } else if (weatherType === 'Snow') {
-     //   showAlert(`Dress Warm ${day}`, 'Moderate');
-    } else if (weatherType === 'Clear') {
-     //   showAlert(`Ideal Conditions ${day}`, 'Low');
-    } else if (
-        weatherType === 'Mist' ||
-        weatherType === 'Fog' ||
-        weatherType === 'Haze'
-    ) {
-     //   showAlert(`Poor Visibility ${day}`, 'Moderate');
-    } else {
-      //  showAlert(`Poor Air Quality ${day}`, 'Severe');
-    }
+    // if (
+    //     weatherType === 'Rain' ||
+    //     weatherType === 'Drizzle' ||
+    //     weatherType === 'Clouds'
+    // ) {
+    //  //   showAlert(`Umbrella Required ${day}`, 'Severe');
+    // } else if (weatherType === 'Thunderstorm' || weatherType === 'Tornado') {
+    //  //   showAlert(`Stay Indoors ${day}`, 'Severe');
+    // } else if (weatherType === 'Snow') {
+    //  //   showAlert(`Dress Warm ${day}`, 'Moderate');
+    // } else if (weatherType === 'Clear') {
+    //  //   showAlert(`Ideal Conditions ${day}`, 'Low');
+    // } else if (
+    //     weatherType === 'Mist' ||
+    //     weatherType === 'Fog' ||
+    //     weatherType === 'Haze'
+    // ) {
+    //  //   showAlert(`Poor Visibility ${day}`, 'Moderate');
+    // } else {
+    //   //  showAlert(`Poor Air Quality ${day}`, 'Severe');
+    // }
 }
 
 
@@ -412,22 +447,14 @@ const cityWeatherDesc = document.querySelectorAll('.global-descriptions');
 const cityNames = document.querySelectorAll('.global-name');
 const countryNames = document.querySelectorAll('.country-name');
 const cities = [
-    'Seattle',
-    'Rabat',
-    'London',
+    
+    'Patna',
     'Mumbai',
     'Delhi',
     'Jakarta',
     'Agra',
-    'Shanghai',
-    'Tokyo',
-    'Cairo',
-    'Dhaka',
     'New York',
-    'Istanbul',
-    'Los Angeles',
-    'Munich',
-    'Dubai',
+    
 ];
 
 // Shuffle Array for Randomized Cities
@@ -472,6 +499,85 @@ for (let i = 0; i < 5; i++) {
         });
     });
 }
+
+
+
+
+
+// Define function to fetch weather for multiple cities
+async function fetchWeatherForCities(cities) {
+    const apiKey = '10dc4a9025b811536cde5459c533e738'; // Replace with your OpenWeatherMap API key
+    const units = 'imperial'; // or 'metric' for Celsius
+    const alertContainer = document.getElementById('alert-container');
+
+    // Clear previous alerts
+    alertContainer.innerHTML = '';
+
+    // Loop through each city
+    for (const city of cities) {
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch weather data');
+            }
+            const data = await response.json();
+            const weatherType = data.weather[0].main;
+            const alertStatus = determineAlertStatus(weatherType);
+            displayAlert(city, alertStatus);
+        } catch (error) {
+            console.error(`Error fetching weather for ${city}:`, error);
+        }
+    }
+}
+
+// Define function to determine alert status based on weather type
+function determineAlertStatus(weatherType) {
+    // Add your logic to determine alert status based on weather type
+    // For example:
+    if (weatherType === 'Thunderstorm' || weatherType === 'Tornado' || weatherType === 'Snow') {
+        return 'High';
+    } else if (weatherType === 'Rain' || weatherType === 'Drizzle' || weatherType === 'Clouds' || weatherType === 'Mist' || weatherType === 'Fog' || weatherType === 'Haze') {
+        return 'Moderate';
+    } else {
+        return 'Low';
+    }
+}
+
+// Define function to display alert for a city
+function displayAlert(city, alertStatus) {
+    const alertContainer = document.getElementById('alert-container');
+    const alertItem = document.createElement('div');
+    alertItem.classList.add('alert-item');
+    alertItem.textContent = `${city}: ${alertStatus} Alert`;
+    alertContainer.appendChild(alertItem);
+}
+
+
+// Call the function to fetch weather for multiple cities and display alerts
+fetchWeatherForCities(cities);
+
+// // Update the displayGlobalTemperature function to populate the city list
+// function displayGlobalTemperature2() {
+//     const cityListContainer = document.getElementById('city-list');
+//     cities.forEach(city => {
+//         const cityItem = document.createElement('div');
+//         cityItem.classList.add('city-item');
+//         cityItem.textContent = city;
+//         cityItem.addEventListener('click', () => {
+//             updateWeatherByName(city);
+//             window.scrollTo({
+//                 top: 0,
+//                 behavior: 'smooth',
+//             });
+//         });
+//         cityListContainer.appendChild(cityItem);
+//     });
+// }
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     displayGlobalTemperature2();
+// });
 // Default Location to Show
 displayGlobalTemperature();
 

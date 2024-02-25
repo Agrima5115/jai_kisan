@@ -137,14 +137,7 @@
                       <span id="visibility">0</span>km
                       <i class="fa-solid fa-eye-slash align-self-center"></i>
                     </li>
-                    <li class="list-group-item d-flex">
-                      <strong class="flex-grow-1">Dew Point </strong
-                      ><span id="dew-point" class="temps"></span>°<span
-                        class="fahrenheit"
-                        >F</span
-                      >
-                      <i class="fa-solid fa-droplet align-self-center"></i>
-                    </li>
+                    
                     <li class="list-group-item d-flex">
                       <strong class="flex-grow-1">Wind </strong>
                       <span id="wind">0</span>
@@ -162,6 +155,11 @@
                       <strong class="flex-grow-1">Cloudiness </strong>
                       <span id="clouds"></span>%
                       <i class="fa-solid fa-cloud align-self-center"></i>
+                    </li>
+                    <li class="list-group-item d-flex">
+                      <strong class="flex-grow-1">Alert Status</strong>
+                      <span id="alert-status"></span>
+                      <i class="fas fa-alert align-self-center"></i>
                     </li>
                   </ul>
                 </div>
@@ -324,6 +322,21 @@
         </section>
       </div>
 
+
+
+      <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Other Cities</h5>
+        </div>
+        <div class="card-body" id="city-list">
+            <!-- City names will be dynamically added here -->
+            <div id="alert-container" class="alert-container"></div>
+
+        </div>
+    </div>
+    <!-- Add a container for displaying weather alerts -->
+    
+    
 
       
 <!-----------daily chart--------------->
